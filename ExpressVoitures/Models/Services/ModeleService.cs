@@ -13,6 +13,11 @@ namespace ExpressVoitures.Models.Services
             _context = context;
         }
 
+        public List<Modele> GetAllModele()
+        {
+            return _context.Modeles.ToList();
+        }
+
         public void AjouterModele(Modele modele)
         {
             _context.Modeles.Add(modele);

@@ -1,0 +1,12 @@
+﻿@model ExpressVoitures.Models.Entities.Vehicule
+
+<h2>Supprimer le véhicule</h2>
+
+<p>Voulez-vous vraiment supprimer ce véhicule : @Model.Marque.Nom @Model.Modele.Nom ?</p>
+
+<form asp-action="Delete">
+    <input type="hidden" asp-for="Id" />
+    <button type="submit" class="btn btn-danger">Supprimer</button>
+    <a href="@Url.Action("Index")" class="btn btn-secondary">Annuler</a>
+</form>
+

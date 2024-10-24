@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace ExpressVoitures.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20240911100054_InitialCreate")]
+    [Migration("20241023071516_InitialCreate")]
     partial class InitialCreate
     {
         /// <inheritdoc />
@@ -117,29 +117,6 @@ namespace ExpressVoitures.Migrations
                     b.ToTable("Modeles");
                 });
 
-            modelBuilder.Entity("ExpressVoitures.Models.Entities.ModeleMarque", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<int>("MarqueId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("ModeleId")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("MarqueId");
-
-                    b.HasIndex("ModeleId");
-
-                    b.ToTable("ModeleMarques");
-                });
-
             modelBuilder.Entity("ExpressVoitures.Models.Entities.Reparation", b =>
                 {
                     b.Property<int>("Id")
@@ -189,7 +166,10 @@ namespace ExpressVoitures.Migrations
                     b.Property<int>("FinitionId")
                         .HasColumnType("int");
 
-                    b.Property<int>("ModeleMarqueId")
+                    b.Property<int>("MarqueId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("ModeleId")
                         .HasColumnType("int");
 
                     b.Property<double>("PrixAchat")
@@ -204,7 +184,9 @@ namespace ExpressVoitures.Migrations
 
                     b.HasIndex("FinitionId");
 
-                    b.HasIndex("ModeleMarqueId");
+                    b.HasIndex("MarqueId");
+
+                    b.HasIndex("ModeleId");
 
                     b.HasIndex("ReparationId")
                         .IsUnique();
@@ -417,31 +399,12 @@ namespace ExpressVoitures.Migrations
             modelBuilder.Entity("ExpressVoitures.Models.Entities.Image", b =>
                 {
                     b.HasOne("ExpressVoitures.Models.Entities.Vehicule", "Vehicule")
-                        .WithMany("Image")
+                        .WithMany("ListImage")
                         .HasForeignKey("VehiculeId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.Navigation("Vehicule");
-                });
-
-            modelBuilder.Entity("ExpressVoitures.Models.Entities.ModeleMarque", b =>
-                {
-                    b.HasOne("ExpressVoitures.Models.Entities.Marque", "Marque")
-                        .WithMany("ModeleMarques")
-                        .HasForeignKey("MarqueId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("ExpressVoitures.Models.Entities.Modele", "Modele")
-                        .WithMany("ModeleMarques")
-                        .HasForeignKey("ModeleId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Marque");
-
-                    b.Navigation("Modele");
                 });
 
             modelBuilder.Entity("ExpressVoitures.Models.Entities.Vehicule", b =>
@@ -458,9 +421,15 @@ namespace ExpressVoitures.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("ExpressVoitures.Models.Entities.ModeleMarque", "ModeleMarque")
+                    b.HasOne("ExpressVoitures.Models.Entities.Marque", "Marque")
                         .WithMany("Vehicules")
-                        .HasForeignKey("ModeleMarqueId")
+                        .HasForeignKey("MarqueId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("ExpressVoitures.Models.Entities.Modele", "Modele")
+                        .WithMany("Vehicules")
+                        .HasForeignKey("ModeleId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -474,7 +443,9 @@ namespace ExpressVoitures.Migrations
 
                     b.Navigation("Finition");
 
-                    b.Navigation("ModeleMarque");
+                    b.Navigation("Marque");
+
+                    b.Navigation("Modele");
 
                     b.Navigation("Reparation");
                 });
@@ -542,15 +513,10 @@ namespace ExpressVoitures.Migrations
 
             modelBuilder.Entity("ExpressVoitures.Models.Entities.Marque", b =>
                 {
-                    b.Navigation("ModeleMarques");
+                    b.Navigation("Vehicules");
                 });
 
             modelBuilder.Entity("ExpressVoitures.Models.Entities.Modele", b =>
-                {
-                    b.Navigation("ModeleMarques");
-                });
-
-            modelBuilder.Entity("ExpressVoitures.Models.Entities.ModeleMarque", b =>
                 {
                     b.Navigation("Vehicules");
                 });
@@ -563,7 +529,7 @@ namespace ExpressVoitures.Migrations
 
             modelBuilder.Entity("ExpressVoitures.Models.Entities.Vehicule", b =>
                 {
-                    b.Navigation("Image");
+                    b.Navigation("ListImage");
                 });
 #pragma warning restore 612, 618
         }

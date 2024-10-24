@@ -17,6 +17,25 @@ namespace ExpressVoitures.Models.Services
         {
             return _context.Marques.ToList();
         }
+        public void AjouterMarque(Marque marque)
+        {
+            _context.Marques.Add(marque);
+            _context.SaveChanges();
+        }
+        public void ModifierMarque(Marque marque)
+        {
+            _context.Marques.Update(marque);
+            _context.SaveChanges();
+        }
+        public void SupprimerMarque(int id)
+        {
+            var marque = _context.Marques.FirstOrDefault(x => x.Id == id);
+            if (marque != null)
+            {
+                _context.Marques.Remove(marque);
+                _context.SaveChanges();
+            }
+        }
     }
 
 }

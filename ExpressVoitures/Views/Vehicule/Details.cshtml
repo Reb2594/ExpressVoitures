@@ -1,0 +1,45 @@
+﻿@model ExpressVoitures.Models.Entities.Vehicule
+
+<h2>Détails du véhicule</h2>
+
+<div>
+    <p><strong>Année :</strong> @Model.Annee?.Valeur</p>
+    <p><strong>Marque :</strong> @Model.Marque?.Nom</p>
+    <p><strong>Modèle :</strong> @Model.Modele?.Nom</p>
+    <p><strong>Finition :</strong> @Model.Finition?.Nom</p>
+    <p><strong>Disponible :</strong> @(Model.Disponible ? "Oui" : "Non")</p>
+    <p><strong>Date d'achat :</strong> @Model.DateAchat.ToString("dd/MM/yyyy")</p>
+    @if (Model.DateVente.HasValue)
+    {
+        <p><strong>Date de vente :</strong> @Model.DateVente.Value.ToString("dd/MM/yyyy")</p>
+    }
+    <p><strong>Prix d'achat :</strong> @Model.PrixAchat €</p>
+    <p><strong>Description :</strong> @Model.Description</p>
+
+    <h4>Réparations</h4>
+    @if (Model.Reparation != null)
+    {
+        <p><strong>Description :</strong> @Model.Reparation.Description</p>
+        <p><strong>Coût :</strong> @Model.Reparation.Cout €</p>
+    }
+
+    <h4>Images</h4>
+    @if (Model.ListImage != null && Model.ListImage.Any())
+    {
+        foreach (var image in Model.ListImage)
+        {
+            <img src="@image.Url" alt="Images du véhicule" style="width: 100px; height: auto;" />
+        }
+    }
+    else
+    {
+        <p>Pas d'image disponible</p>
+    }
+
+    @if (User.Identity.IsAuthenticated)
+    {
+        <a href="@Url.Action("Edit", new { id = Model.Id })" class="btn btn-primary">Modifier</a>
+        <a href="@Url.Action("Delete", new { id = Model.Id })" class="btn btn-danger">Supprimer</a>
+    }
+</div>
+

@@ -224,39 +224,14 @@ namespace ExpressVoitures.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "ModeleMarques",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    MarqueId = table.Column<int>(type: "int", nullable: false),
-                    ModeleId = table.Column<int>(type: "int", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_ModeleMarques", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_ModeleMarques_Marques_MarqueId",
-                        column: x => x.MarqueId,
-                        principalTable: "Marques",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_ModeleMarques_Modeles_ModeleId",
-                        column: x => x.ModeleId,
-                        principalTable: "Modeles",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "Vehicules",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     AnneeId = table.Column<int>(type: "int", nullable: false),
-                    ModeleMarqueId = table.Column<int>(type: "int", nullable: false),
+                    MarqueId = table.Column<int>(type: "int", nullable: false),
+                    ModeleId = table.Column<int>(type: "int", nullable: false),
                     FinitionId = table.Column<int>(type: "int", nullable: false),
                     ReparationId = table.Column<int>(type: "int", nullable: false),
                     Disponible = table.Column<bool>(type: "bit", nullable: false),
@@ -281,9 +256,15 @@ namespace ExpressVoitures.Migrations
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_Vehicules_ModeleMarques_ModeleMarqueId",
-                        column: x => x.ModeleMarqueId,
-                        principalTable: "ModeleMarques",
+                        name: "FK_Vehicules_Marques_MarqueId",
+                        column: x => x.MarqueId,
+                        principalTable: "Marques",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_Vehicules_Modeles_ModeleId",
+                        column: x => x.ModeleId,
+                        principalTable: "Modeles",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
@@ -360,16 +341,6 @@ namespace ExpressVoitures.Migrations
                 column: "VehiculeId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_ModeleMarques_MarqueId",
-                table: "ModeleMarques",
-                column: "MarqueId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_ModeleMarques_ModeleId",
-                table: "ModeleMarques",
-                column: "ModeleId");
-
-            migrationBuilder.CreateIndex(
                 name: "IX_Vehicules_AnneeId",
                 table: "Vehicules",
                 column: "AnneeId");
@@ -380,9 +351,14 @@ namespace ExpressVoitures.Migrations
                 column: "FinitionId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Vehicules_ModeleMarqueId",
+                name: "IX_Vehicules_MarqueId",
                 table: "Vehicules",
-                column: "ModeleMarqueId");
+                column: "MarqueId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Vehicules_ModeleId",
+                table: "Vehicules",
+                column: "ModeleId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Vehicules_ReparationId",
@@ -428,16 +404,13 @@ namespace ExpressVoitures.Migrations
                 name: "Finitions");
 
             migrationBuilder.DropTable(
-                name: "ModeleMarques");
-
-            migrationBuilder.DropTable(
-                name: "Reparations");
-
-            migrationBuilder.DropTable(
                 name: "Marques");
 
             migrationBuilder.DropTable(
                 name: "Modeles");
+
+            migrationBuilder.DropTable(
+                name: "Reparations");
         }
     }
 }

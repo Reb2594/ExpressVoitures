@@ -14,6 +14,11 @@ namespace ExpressVoitures.Models.Services
             _context = context;
         }
 
+        public List<Finition> GetAllFinition()
+        {
+            return _context.Finitions.ToList();
+        }
+
         public void AjouterFinition(Finition finition)
         {
             _context.Finitions.Add(finition);

@@ -2,7 +2,31 @@
     ViewData["Title"] = "Home Page";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+<div class="container text-center">
+    <h1>Nos voitures</h1>
+    @if (User.Identity.IsAuthenticated)
+    {
+        <a href="/Vehicule/Create" class="btn btn-primary">Ajouter une voiture</a>
+    }
+</div>
+
+<div class="container vehicle-list">
+    <div class="row">
+        @foreach (var vehicule in Model.Vehicules)
+        {
+            <div class="col-md-6">
+                <div class="card">
+                    <img src="@vehicule.ListImage.FirstOrDefault()?.Url" class="card-img-top" alt="Photo du véhicule" />
+                    <div class="card-body">
+                        <h5 class="card-title">@vehicule.Marque.Nom @vehicule.Modele.Nom</h5>
+                        <p class="card-text">
+                            Prix de vente : <strong>@vehicule.PrixAchat €</strong><br />
+                            Année : @vehicule.Annee.Nom<br />
+                            Disponible : @(vehicule.Disponible ? "Oui" : "Non")
+                        </p>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
 </div>

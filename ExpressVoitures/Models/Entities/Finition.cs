@@ -7,6 +7,6 @@ namespace ExpressVoitures.Models.Entities
         [Key]
         public int Id { get; set; }
         public required string Nom { get; set; }
-        public Vehicule Vehicules { get; set; }
+        public List<Vehicule> Vehicules { get; set; }
     }
 }

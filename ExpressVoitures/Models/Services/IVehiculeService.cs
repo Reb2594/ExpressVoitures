@@ -4,7 +4,7 @@ namespace ExpressVoitures.Models.Services
 {
     public interface IVehiculeService
     {
-        Vehicule GetVehiculeById(int id);
+        Task <Vehicule> GetVehiculeById(int id);
         List<Vehicule> GetAllVehicules();
         void AjouterVehicule(Vehicule vehicule);
         void ModifierVehicule(Vehicule vehicule);

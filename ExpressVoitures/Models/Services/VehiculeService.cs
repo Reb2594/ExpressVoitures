@@ -13,14 +13,15 @@ namespace ExpressVoitures.Models.Services
             _context = context;
         }
 
-        public Vehicule GetVehiculeById(int id)
+        public async Task<Vehicule> GetVehiculeById(int id)
         {
-            return _context.Vehicules
+            return await _context.Vehicules
                 .Include(v => v.Annee)
                 .Include(v => v.Marque)
                 .Include(v => v.Modele)
                 .Include(v => v.Finition)
-                .FirstOrDefault(v => v.Id == id);
+                .Include(v => v.ListImage)
+                .FirstOrDefaultAsync(v => v.Id == id);
         }
 
         public List<Vehicule> GetAllVehicules()

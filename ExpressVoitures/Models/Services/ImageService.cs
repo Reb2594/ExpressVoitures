@@ -1,5 +1,6 @@
 ﻿using ExpressVoitures.Data;
 using ExpressVoitures.Models.Entities;
+using Microsoft.EntityFrameworkCore;
 
 namespace ExpressVoitures.Models.Services
 {
@@ -10,6 +11,13 @@ namespace ExpressVoitures.Models.Services
         public ImageService(ApplicationDbContext context)
         {
             _context = context;
+        }
+
+        public async Task<List<Image>> GetImagesByVehiculeId(int vehiculeId)
+        {
+            return await _context.Images
+                .Where(image => image.VehiculeId == vehiculeId)
+                .ToListAsync();
         }
 
         public void AjouterImage(Image image)
