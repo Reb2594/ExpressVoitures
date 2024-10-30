@@ -69,7 +69,7 @@ namespace ExpressVoitures.Controllers
         {
             var viewModel = new VehiculeViewModel
             {
-                Annees = new SelectList(Enumerable.Range(1990, DateTime.Now.Year - 1990 + 1).Select(x => new { Id = x, Valeur = x.ToString() }), "Id", "Valeur"),
+                Annees = _anneeService.GetAllAnnees(),
                 Marques = new SelectList(_marqueService.GetAllMarques(), "Id", "Nom"),
                 Modeles = new SelectList(_modeleService.GetAllModele(), "Id", "Nom"),
                 Finitions = new SelectList(_finitionService.GetAllFinition(), "Id", "Nom"),
@@ -85,7 +85,7 @@ namespace ExpressVoitures.Controllers
         [ValidateAntiForgeryToken]
         [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Create(VehiculeViewModel viewModel)
-        {
+        {           
             if (ModelState.IsValid)
             {
                 // Ajout de la nouvelle marque si elle est fournie
@@ -169,7 +169,7 @@ namespace ExpressVoitures.Controllers
             }
 
             // Si ModelState n'est pas valide, recharger les listes déroulantes et retourner à la vue
-            viewModel.Annees = new SelectList(Enumerable.Range(1990, DateTime.Now.Year - 1990 + 1).Select(x => new { Id = x, Valeur = x.ToString() }), "Id", "Valeur");
+            viewModel.Annees = _anneeService.GetAllAnnees();
             viewModel.Marques = new SelectList(_marqueService.GetAllMarques(), "Id", "Nom");
             viewModel.Modeles = new SelectList(_modeleService.GetAllModele(), "Id", "Nom");
             viewModel.Finitions = new SelectList(_finitionService.GetAllFinition(), "Id", "Nom");
@@ -207,7 +207,7 @@ namespace ExpressVoitures.Controllers
             };
 
             // Charger les listes déroulantes
-            viewModel.Annees = new SelectList(Enumerable.Range(1990, DateTime.Now.Year - 1990 + 1).Select(x => new { Id = x, Valeur = x.ToString() }), "Id", "Valeur");
+            viewModel.Annees = _anneeService.GetAllAnnees();
             viewModel.Marques = new SelectList(_marqueService.GetAllMarques(), "Id", "Nom");
             viewModel.Modeles = new SelectList(_modeleService.GetAllModele(), "Id", "Nom");
             viewModel.Finitions = new SelectList(_finitionService.GetAllFinition(), "Id", "Nom");
@@ -320,7 +320,7 @@ namespace ExpressVoitures.Controllers
             }
 
             // Si ModelState n'est pas valide, recharger les listes déroulantes et retourner à la vue
-            viewModel.Annees = new SelectList(Enumerable.Range(1990, DateTime.Now.Year - 1990 + 1).Select(x => new { Id = x, Valeur = x.ToString() }), "Id", "Valeur");
+            viewModel.Annees = _anneeService.GetAllAnnees();
             viewModel.Marques = new SelectList(_marqueService.GetAllMarques(), "Id", "Nom");
             viewModel.Modeles = new SelectList(_modeleService.GetAllModele(), "Id", "Nom");
             viewModel.Finitions = new SelectList(_finitionService.GetAllFinition(), "Id", "Nom");

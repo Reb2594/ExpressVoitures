@@ -2,33 +2,39 @@
 
 <h2>Liste des véhicules</h2>
 
-<div class="row">
-    @foreach (var vehicule in Model)
-    {
-        <div class="col-md-6 mb-4">
-            <div class="card">
-                <img src="@vehicule.ListImage.FirstOrDefault()?.Url" class="card-img-top" alt="Image de @vehicule.Modele?.Nom" style="height: 200px; object-fit: cover;">
-                <div class="card-body">
-                    <h5 class="card-title">@vehicule.Modele?.Nom</h5>
-                    <p class="card-text">
-                        <strong>Marque :</strong> @vehicule.Marque?.Nom <br />
-                        <strong>Année :</strong> @vehicule.Annee?.Valeur <br />
-                        <strong>Finition :</strong> @vehicule.Finition?.Nom <br />
-                        <strong>Prix :</strong> @vehicule.PrixAchat.ToString("C") <br />
-                        <strong>Disponible :</strong> @(vehicule.Disponible ? "Oui" : "Non")
-                    </p>
-                    <a href="@Url.Action("Details", "Vehicule", new { id = vehicule.Id })" class="btn btn-primary">Voir</a>
-                    @if (User.Identity.IsAuthenticated)
-                    {
-                        <a href="@Url.Action("Edit", "Vehicule", new { id = vehicule.Id })" class="btn btn-warning">Modifier</a>
-                        <a href="@Url.Action("Delete", "Vehicule", new { id = vehicule.Id })" class="btn btn-danger">Supprimer</a>
-                    }
+@if (Model != null && Model.Any())
+{
+    <div class="row">    
+        @foreach (var vehicule in Model)
+        {
+            <div class="col-md-6 mb-4">
+                <div class="card">
+                    <img src="@vehicule.ListImage.FirstOrDefault()?.Url" class="card-img-top" alt="Image de @vehicule.Modele?.Nom" style="height: 200px; object-fit: cover;">
+                    <div class="card-body">
+                        <h5 class="card-title">@vehicule.Modele?.Nom</h5>
+                        <p class="card-text">
+                            <strong>Marque :</strong> @vehicule.Marque?.Nom <br />
+                            <strong>Année :</strong> @vehicule.Annee?.Valeur <br />
+                            <strong>Finition :</strong> @vehicule.Finition?.Nom <br />
+                            <strong>Prix :</strong> @vehicule.PrixAchat.ToString("C") <br />
+                            <strong>Disponible :</strong> @(vehicule.Disponible ? "Oui" : "Non")
+                        </p>
+                        <a href="@Url.Action("Details", "Vehicule", new { id = vehicule.Id })" class="btn btn-primary">Voir</a>
+                        @if (User.Identity.IsAuthenticated)
+                        {
+                            <a href="@Url.Action("Edit", "Vehicule", new { id = vehicule.Id })" class="btn btn-warning">Modifier</a>
+                            <a href="@Url.Action("Delete", "Vehicule", new { id = vehicule.Id })" class="btn btn-danger">Supprimer</a>
+                        }
+                    </div>
                 </div>
             </div>
-        </div>
-    }
-</div>
-
+        }    
+    </div>
+}
+else
+{
+    <p>Aucun véhicule n'est disponible.</p>
+}
 @if (User.Identity.IsAuthenticated)
 {
     <a class="btn btn-primary" href="@Url.Action("Create", "Vehicule")">Ajouter un véhicule</a>

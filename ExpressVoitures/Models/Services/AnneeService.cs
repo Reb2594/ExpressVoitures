@@ -1,5 +1,6 @@
 ﻿using ExpressVoitures.Data;
 using ExpressVoitures.Models.Entities;
+using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace ExpressVoitures.Models.Services
 {
@@ -12,9 +13,16 @@ namespace ExpressVoitures.Models.Services
             _context = context;
         }
 
-        public List<Annee> GetAllAnnees()
+        public IEnumerable<SelectListItem> GetAllAnnees()
         {
-            return _context.Annees.ToList();
+            return _context.Annees
+                .OrderBy(a => a.Id)
+                .Select(a => new SelectListItem
+                {
+                    Value = a.Id.ToString(),
+                    Text = a.Valeur.ToString()
+                })
+                .ToList();
         }
     }
 

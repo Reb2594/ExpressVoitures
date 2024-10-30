@@ -1,9 +1,10 @@
 ﻿using ExpressVoitures.Models.Entities;
+using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace ExpressVoitures.Models.Services
 {
     public interface IAnneeService
     {
-        List<Annee> GetAllAnnees();
+        IEnumerable<SelectListItem> GetAllAnnees();
     }
 }

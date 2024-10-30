@@ -32,7 +32,7 @@ namespace ExpressVoitures.Models.Services
                 .Include(v => v.Modele)
                 .Include(v => v.Finition) 
                 .Include(v => v.ListImage)
-                .ToList();
+                .ToList() ?? new List<Vehicule>();
         }
 
         public void AjouterVehicule(Vehicule vehicule)

@@ -13,8 +13,7 @@ namespace ExpressVoitures.Data
 
         public DbSet<Vehicule> Vehicules { get; set; }
         public DbSet<Marque> Marques { get; set; }
-        public DbSet<Modele> Modeles { get; set; }
-        //public DbSet<ModeleMarque> ModeleMarques { get; set; }
+        public DbSet<Modele> Modeles { get; set; } 
         public DbSet<Annee> Annees { get; set; }
         public DbSet<Finition> Finitions { get; set; }
         public DbSet<Reparation> Reparations { get; set; }
@@ -26,9 +25,6 @@ namespace ExpressVoitures.Data
             base.OnModelCreating(modelBuilder);
 
             // Configuration des clés primaires
-
-            //modelBuilder.Entity<ModeleMarque>()
-                //.HasKey(mm => mm.Id);
 
             modelBuilder.Entity<Vehicule>()
                 .HasKey(mm => mm.Id);

@@ -11,10 +11,16 @@ builder.Services.AddDbContext<ApplicationDbContext>(options =>
     options.UseSqlServer(connectionString));
 builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 
-builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true).AddRoles<IdentityRole>()
+builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = false).AddRoles<IdentityRole>()
     .AddEntityFrameworkStores<ApplicationDbContext>();
 builder.Services.AddControllersWithViews();
 builder.Services.AddScoped<IVehiculeService, VehiculeService>();
+builder.Services.AddScoped<IAnneeService, AnneeService>();
+builder.Services.AddScoped<IFinitionService, FinitionService>();
+builder.Services.AddScoped<IReparationService, ReparationService>();
+builder.Services.AddScoped<IMarqueService, MarqueService>();
+builder.Services.AddScoped<IModeleService, ModeleService>();
+builder.Services.AddScoped<IImagesService, ImageService>();
 var app = builder.Build();
 
 // Create default admin user
@@ -32,8 +38,8 @@ using (var scope = app.Services.CreateScope())
     }
 
     // Create the admin user if it doesn't exist
-    var adminEmail = "admin@example.com"; // Change to your desired admin email
-    var adminPassword = "AdminPassword123!"; // Change to your desired admin password
+    var adminEmail = "admin@example.com";
+    var adminPassword = "AdminPassword123!";
     var adminUser = await userManager.FindByEmailAsync(adminEmail);
 
     if (adminUser == null)
@@ -67,7 +73,7 @@ app.UseAuthorization();
 
 app.MapControllerRoute(
     name: "default",
-    pattern: "{controller=Home}/{action=Index}");
+    pattern: "{controller=Home}/{action=Index}/{id?}");
 app.MapRazorPages();
 
 app.Run();

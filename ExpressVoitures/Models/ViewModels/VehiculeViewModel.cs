@@ -1,30 +1,32 @@
 ﻿using Microsoft.AspNetCore.Mvc.Rendering;
 using System.ComponentModel.DataAnnotations;
 using Microsoft.AspNetCore.Http;
+using ExpressVoitures.Models.Entities;
 
 namespace ExpressVoitures.Models.ViewModels
 {
     public class VehiculeViewModel
     {
+        internal List<Vehicule> Vehicule;
+
         public int Id { get; set; }
 
         // Liste déroulante pour l'année
         public int AnneeId { get; set; }
-
-        [Required]
-        public IEnumerable<SelectListItem> Annees { get; set; }
+                
+        public IEnumerable<SelectListItem> ? Annees { get; set; }
 
         // Liste déroulante pour la marque
         public int MarqueId { get; set; }
-        public IEnumerable<SelectListItem> Marques { get; set; }
+        public IEnumerable<SelectListItem> ? Marques { get; set; }
 
         // Liste déroulante pour le modèlede 
         public int ModeleId { get; set; }
-        public IEnumerable<SelectListItem> Modeles { get; set; }
+        public IEnumerable<SelectListItem> ? Modeles { get; set; }
 
         // Liste déroulante pour la finition
         public int FinitionId { get; set; }
-        public IEnumerable<SelectListItem> Finitions { get; set; }
+        public IEnumerable<SelectListItem> ? Finitions { get; set; }
         public string? NewMarque { get; set; }
         public string? NewModele { get; set; }
         public string? NewFinition { get; set; }
