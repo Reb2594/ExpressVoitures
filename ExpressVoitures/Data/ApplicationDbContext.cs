@@ -97,6 +97,44 @@ namespace ExpressVoitures.Data
             modelBuilder.Entity<Vehicule>()
                 .Ignore(v => v.ImageUrls);
 
+            // Ajout des données statiques pour les Marques
+            modelBuilder.Entity<Marque>().HasData(
+                new Marque { Id = 1, Nom = "Mazda" },
+                new Marque { Id = 2, Nom = "Jeep" },
+                new Marque { Id = 3, Nom = "Renault" },
+                new Marque { Id = 4, Nom = "Ford" },
+                new Marque { Id = 5, Nom = "Honda" },
+                new Marque { Id = 6, Nom = "Volkswagen" },
+                new Marque { Id = 7, Nom = "Peugeot" },
+                new Marque { Id = 8, Nom = "Volvo" }
+            );
+
+            // Ajout des données statiques pour les Modèles
+            modelBuilder.Entity<Modele>().HasData(
+                new Modele { Id = 1, Nom = "Miata", MarqueId = 1 },
+                new Modele { Id = 2, Nom = "Liberty", MarqueId = 2 },
+                new Modele { Id = 3, Nom = "Scénic", MarqueId = 3 },
+                new Modele { Id = 4, Nom = "Explorer", MarqueId = 4 },
+                new Modele { Id = 5, Nom = "Civic", MarqueId = 5 },
+                new Modele { Id = 6, Nom = "GTI", MarqueId = 6 },
+                new Modele { Id = 7, Nom = "Edge", MarqueId = 4 },
+                new Modele { Id = 8, Nom = "3008", MarqueId = 7 },
+                new Modele { Id = 9, Nom = "206", MarqueId = 7 },
+                new Modele { Id = 10, Nom = "XC60", MarqueId = 8 },
+                new Modele { Id = 11, Nom = "XC90", MarqueId = 8 }
+            );
+
+            // Ajout des données statiques pour les Finitions
+            modelBuilder.Entity<Finition>().HasData(
+                new Finition { Id = 1, Nom = "LE" },
+                new Finition { Id = 2, Nom = "Sport" },
+                new Finition { Id = 3, Nom = "TCe" },
+                new Finition { Id = 4, Nom = "XLT" },
+                new Finition { Id = 5, Nom = "LX" },
+                new Finition { Id = 6, Nom = "S" },
+                new Finition { Id = 7, Nom = "SEL" }
+            );
+
         }
 
     }

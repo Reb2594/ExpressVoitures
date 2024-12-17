@@ -46,9 +46,11 @@ Exemple pour une instance SQL Server standard :
 
 dotnet ef database update
 
+- Il suffira ensuite de lancer le projet, via IIS Express sur Chrome, Edge ou Firefox, la base sera automatiquement créée et, dans un souci d'amélioration de l'expérience utilisateur dans le cadre de la démo, celle-ci sera aussi  peuplée de quelques valeurs pour les marques, les modèles et les finitions.
+
 ## Authentification
 
-Dés le premier lancement du projet, il est possible de se connecter en tant qu'administrateur grâce aux identifiants suivants :
+Dès le premier lancement du projet, afin de faciliter la démo, il sera possible de se connecter en tant qu'administrateur grâce aux identifiants suivants :
 
 **Login** : admin@example.com
 
