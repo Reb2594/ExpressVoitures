@@ -1,41 +1,110 @@
 ﻿@model IEnumerable<ExpressVoitures.Models.Entities.Vehicule>
 
-<h2>Liste des véhicules</h2>
+<div class="container text-center">
+    <h1>Nos voitures</h1>
+    @if (User.Identity.IsAuthenticated)
+    {
+        <a href="/Vehicule/Create" class="btn btn-primary"> + Ajouter une voiture</a>
+        <br/><br/>
+    }
+</div>
 
-@if (Model != null && Model.Any())
+@if (User.Identity.IsAuthenticated)
 {
-    <div class="row">    
-        @foreach (var vehicule in Model)
-        {
-            <div class="col-md-6 mb-4">
-                <div class="card">
-                    <img src="@vehicule.ListImage.FirstOrDefault()?.Url" class="card-img-top" alt="Image de @vehicule.Modele?.Nom" style="height: 200px; object-fit: cover;">
-                    <div class="card-body">
-                        <h5 class="card-title">@vehicule.Modele?.Nom</h5>
-                        <p class="card-text">
-                            <strong>Marque :</strong> @vehicule.Marque?.Nom <br />
-                            <strong>Année :</strong> @vehicule.Annee?.Valeur <br />
-                            <strong>Finition :</strong> @vehicule.Finition?.Nom <br />
-                            <strong>Prix :</strong> @vehicule.PrixAchat.ToString("C") <br />
-                            <strong>Disponible :</strong> @(vehicule.Disponible ? "Oui" : "Non")
-                        </p>
-                        <a href="@Url.Action("Details", "Vehicule", new { id = vehicule.Id })" class="btn btn-primary">Voir</a>
-                        @if (User.Identity.IsAuthenticated)
-                        {
-                            <a href="@Url.Action("Edit", "Vehicule", new { id = vehicule.Id })" class="btn btn-warning">Modifier</a>
-                            <a href="@Url.Action("Delete", "Vehicule", new { id = vehicule.Id })" class="btn btn-danger">Supprimer</a>
-                        }
+    @if (Model != null && Model.Any())
+    {
+        <div class="container">
+            <div class="row">
+                @foreach (var vehicule in Model)
+                {
+                    <div class="col-md-6 mb-4">
+                        <!-- Cellule principale -->
+                        <div class="cell" style="width: 634px; height: 356px; display: flex; align-items: center; padding: 10px; box-sizing: border-box; border-radius: 8px; position: relative;">
+                            <!-- Sous-cellule pour l'image -->
+                            <div style="width: 411px; height: 316px; gap: 0px; border-radius: 5px; opacity: 0px; position: absolute; top: 20px; left: 10px;">
+                                <a href="@Url.Action("Details", "Vehicule", new { id = vehicule.Id })">
+                                    <img src="@(vehicule.ImageUrls != null && vehicule.ImageUrls.Any() && vehicule.ImageUrls.FirstOrDefault() != null
+                                              ? Url.Content($"/{vehicule.ImageUrls.FirstOrDefault()}")
+                                              : Url.Content("~/images/default-car.jpg"))"
+                                         alt="Image de @vehicule.Modele?.Nom"
+                                         style="object-fit: contain; width: 100%; height: 100%; border-radius: 5px;">
+                                </a>
+                            </div>
+                            <!-- Sous-cellule pour les informations -->
+                            <div style="width: 152px; height: 159px; position: absolute; top: 79px; left: 421px; gap: 10px; display: flex; flex-direction: column; justify-content: center; margin-left: 1em;">
+                                <h5 class="card-title" style="margin: 0; font-weight: bold; text-align: left;">@vehicule.PrixVente €</h5>
+                                <p class="card-text" style="margin: 0; text-align: left;">
+                                    @vehicule.Annee.Valeur<br />
+                                    @vehicule.Marque.Nom<br />
+                                    @vehicule.Modele.Nom<br />
+                                    @vehicule.Finition.Nom
+                                </p>
+                            </div>
+                        </div>
                     </div>
-                </div>
+                }
             </div>
-        }    
-    </div>
+        </div>
+    }
+
+    else
+    {
+        <p>Aucun véhicule n'est disponible.</p>
+    }
 }
 else
 {
-    <p>Aucun véhicule n'est disponible.</p>
+    @if (Model != null && Model.Any())
+    {
+        <div class="container">
+            <div class="row">
+                @foreach (var vehicule in Model)
+                {
+                    if (vehicule.Disponible == true) 
+                    {
+                        <div class="col-md-6 mb-4">
+                            <!-- Cellule principale -->
+                            <div class="cell" style="width: 634px; height: 356px; display: flex; align-items: center; padding: 10px; box-sizing: border-box; border-radius: 8px; position: relative;">
+                                <!-- Sous-cellule pour l'image -->
+                                <div style="width: 411px; height: 316px; gap: 0px; border-radius: 5px; opacity: 0px; position: absolute; top: 20px; left: 10px;">
+                                    <a href="@Url.Action("Details", "Vehicule", new { id = vehicule.Id })">
+                                        <img src="@(vehicule.ImageUrls != null && vehicule.ImageUrls.Any() && vehicule.ImageUrls.FirstOrDefault() != null
+                                              ? Url.Content($"/{vehicule.ImageUrls.FirstOrDefault()}")
+                                              : Url.Content("~/images/default-car.jpg"))"
+                                             alt="Image de @vehicule.Modele?.Nom"
+                                             style="object-fit: contain; width: 100%; height: 100%; border-radius: 5px;">
+                                    </a>
+                                </div>
+                                <!-- Sous-cellule pour les informations -->
+                                <div style="width: 152px; height: 159px; position: absolute; top: 79px; left: 421px; gap: 10px; display: flex; flex-direction: column; justify-content: center; margin-left: 1em;">
+                                    <h5 class="card-title" style="margin: 0; font-weight: bold; text-align: left;">@vehicule.PrixVente €</h5>
+                                    <p class="card-text" style="margin: 0; text-align: left;">
+                                        @vehicule.Annee.Valeur<br />
+                                        @vehicule.Marque.Nom<br />
+                                        @vehicule.Modele.Nom<br />
+                                        @vehicule.Finition.Nom
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    }
+                    
+                }
+            </div>
+        </div>
+    }
+
+
+
+
+
+
+    else
+    {
+        <p>Aucun véhicule n'est disponible.</p>
+    }
 }
-@if (User.Identity.IsAuthenticated)
-{
-    <a class="btn btn-primary" href="@Url.Action("Create", "Vehicule")">Ajouter un véhicule</a>
-}
+
+
+
+

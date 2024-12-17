@@ -1,45 +1,75 @@
 ﻿@model ExpressVoitures.Models.Entities.Vehicule
 
-<h2>Détails du véhicule</h2>
 
-<div>
-    <p><strong>Année :</strong> @Model.Annee?.Valeur</p>
-    <p><strong>Marque :</strong> @Model.Marque?.Nom</p>
-    <p><strong>Modèle :</strong> @Model.Modele?.Nom</p>
-    <p><strong>Finition :</strong> @Model.Finition?.Nom</p>
-    <p><strong>Disponible :</strong> @(Model.Disponible ? "Oui" : "Non")</p>
-    <p><strong>Date d'achat :</strong> @Model.DateAchat.ToString("dd/MM/yyyy")</p>
-    @if (Model.DateVente.HasValue)
-    {
-        <p><strong>Date de vente :</strong> @Model.DateVente.Value.ToString("dd/MM/yyyy")</p>
-    }
-    <p><strong>Prix d'achat :</strong> @Model.PrixAchat €</p>
-    <p><strong>Description :</strong> @Model.Description</p>
+<div style="width: 1320px; height: 887.4px; position: absolute; top: 226.6px; left: 70px; gap: 0px; padding: 20px; border-radius: 10px;">
+    <!-- Flèche Retour -->
+    <a href="/" style="text-decoration: none; color: #796157; font-size: 14px; font-weight: 400; font-family:'DM Sans';">&larr; Retour</a>
+    <div class="d-flex mt-4">
+        <!-- Image principale -->
+        <div style="width: 625px; height: 595px; position: relative;">
+            @if (Model.ImageUrls != null && Model.ImageUrls.Any())
+            {
+                <img src="@Url.Content($"~/{Model.ImageUrls.First()}")" alt="Image principale du véhicule" style="width: 100%; height: 100%; object-fit: contain; border-radius: 8px;" />
+            }
+            else
+            {
+                <p>Pas d'image disponible</p>
+            }
+        </div>
+        <div class="ms-4" style="flex: 1; display: flex; flex-direction: column;">
+            @if (User.Identity.IsAuthenticated)
+            {
+                <div>
+                    <p style="font-size: 16px; font-weight: 400;font-family:'DM Sans';margin-bottom:0.4em;">Vous avez publié cette annonce, vous pouvez :</p>
+                    <div class="d-flex align-items-left" style="text-decoration: underline;font-family:'DM Sans';font-weight:400;font-size:16px;">
+                        <a href="@Url.Action("Edit", new { id = Model.Id })" style="color: #929292; margin-right:1em;">modifier</a>
+                        <a href="@Url.Action("Delete", new { id = Model.Id })" style="color: #dc3545;">supprimer</a>
+                    </div>
+                </div>
+            }            
+            <h5 style="font-size: 28px; font-weight: 700; margin-top: 60px;margin-left:2em;">Prix : @Model.PrixVente €</h5>
+            <div class="mt-4" style="font-family: 'DM Sans'; color:#796157;margin-left:3em; font-weight: 400;font-size: 18px;">
+                <p><strong>Année :</strong> @Model.Annee?.Valeur</p>
+                <p><strong>Marque :</strong> @Model.Marque?.Nom</p>
+                <p><strong>Modèle :</strong> @Model.Modele?.Nom</p>
+                <p><strong>Finition :</strong> @Model.Finition?.Nom</p>
+                <p><strong>Disponible :</strong> @(Model.Disponible ? "Oui" : "Non")</p>
+                <p><strong>Date d'achat :</strong> @Model.DateAchat.ToString("dd/MM/yyyy")</p>
+                @if (Model.DateVente.HasValue)
+                {
+                    <p><strong>Date de vente :</strong> @Model.DateVente.Value.ToString("dd/MM/yyyy")</p>
+                }
+                <p><strong>Prix d'achat :</strong> @Model.PrixAchat €</p>
+                @if (Model.Description != null)
+                {
+                    <p><strong>Description :</strong> @Model.Description</p>
+                }
+                
+                @if (Model.Reparation != null)
+                {
+                    <h4 style="font-size: 20px; font-weight:bold;">Réparations</h4>
+                    <p><strong>Description :</strong> @Model.Reparation.Description</p>
+                    <p><strong>Coût :</strong> @Model.Reparation.Cout €</p>
+                }
 
-    <h4>Réparations</h4>
-    @if (Model.Reparation != null)
-    {
-        <p><strong>Description :</strong> @Model.Reparation.Description</p>
-        <p><strong>Coût :</strong> @Model.Reparation.Cout €</p>
-    }
+                <h4 style="font-size: 20px; font-weight:bold;">Galerie d'Images</h4>
+                <div style="display: flex; flex-wrap: wrap; gap: 10px;">
+                    @if (Model.ImageUrls != null && Model.ImageUrls.Skip(1).Any())
+                    {
+                        @foreach (var imageUrl in Model.ImageUrls.Skip(1))
+                        {
+                            <img src="@Url.Content($"~/{imageUrl}")" alt="Image du véhicule" style="width: 150px; height: 100px; object-fit: cover; border-radius: 5px;" />
+                        }
+                    }
+                    else
+                    {
+                        <p>Aucune autre image disponible.</p>
+                    }
+                </div>
 
-    <h4>Images</h4>
-    @if (Model.ListImage != null && Model.ListImage.Any())
-    {
-        foreach (var image in Model.ListImage)
-        {
-            <img src="@image.Url" alt="Images du véhicule" style="width: 100px; height: auto;" />
-        }
-    }
-    else
-    {
-        <p>Pas d'image disponible</p>
-    }
-
-    @if (User.Identity.IsAuthenticated)
-    {
-        <a href="@Url.Action("Edit", new { id = Model.Id })" class="btn btn-primary">Modifier</a>
-        <a href="@Url.Action("Delete", new { id = Model.Id })" class="btn btn-danger">Supprimer</a>
-    }
+            </div>
+        </div>
+        
+    </div>
 </div>
 

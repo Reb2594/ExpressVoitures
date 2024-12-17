@@ -59,6 +59,13 @@ namespace ExpressVoitures.Data
                 .WithMany(m => m.Vehicules)
                 .HasForeignKey(t => t.ModeleId);
 
+            // Configuration de la relation entre Marque et Modele
+            modelBuilder.Entity<Modele>()
+               .HasOne(m => m.Marque)
+               .WithMany(mq => mq.Modeles)
+               .HasForeignKey(m => m.MarqueId)
+               .OnDelete(DeleteBehavior.Restrict);
+
             // Configuration de la relation entre Vehicule et Annee
             modelBuilder.Entity<Vehicule>()
                 .HasOne(v => v.Annee)
@@ -69,25 +76,27 @@ namespace ExpressVoitures.Data
             modelBuilder.Entity<Vehicule>()
                 .HasOne(v => v.Finition)
                 .WithMany(f => f.Vehicules)
-                .HasForeignKey(v => v.FinitionId);
+                .HasForeignKey(v => v.FinitionId)
+                .OnDelete(DeleteBehavior.Restrict);
 
             // Configuration de la relation entre Vehicule et Reparation
             modelBuilder.Entity<Reparation>()
                 .HasOne(r => r.Vehicule)
                 .WithOne(v => v.Reparation)
                 .HasForeignKey<Reparation>(r => r.VehiculeId);
-
-            modelBuilder.Entity<Vehicule>()
-                .HasOne(v => v.Reparation)
-                .WithOne(e => e.Vehicule)
-                .HasForeignKey<Vehicule>(r => r.ReparationId);
+            
 
             // Configuration de la relation entre Image et Véhicule
-            modelBuilder.Entity<Image>()
-                .HasOne(r => r.Vehicule)
-                .WithMany(i => i.ListImage)
-                .HasForeignKey(i => i.VehiculeId);
-         
+            modelBuilder.Entity<Vehicule>()
+               .HasMany(v => v.Images)
+               .WithOne(img => img.Vehicule) // Aucune navigation vers Vehicule depuis Image
+               .HasForeignKey(img => img.VehiculeId)
+               .OnDelete(DeleteBehavior.Cascade); // Suppression en cascade si un Vehicule est supprimé
+
+            // Ignorer la propriété calculée ImageUrls pour qu'elle ne soit pas mappée dans la base de données
+            modelBuilder.Entity<Vehicule>()
+                .Ignore(v => v.ImageUrls);
+
         }
 
     }

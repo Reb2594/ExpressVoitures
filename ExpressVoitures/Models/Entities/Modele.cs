@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace ExpressVoitures.Models.Entities
 {
@@ -6,9 +7,14 @@ namespace ExpressVoitures.Models.Entities
     {
         [Key]
         public int Id { get; set; }
-        public required string Nom { get; set; }
-        public List<Vehicule> Vehicules { get; set; }
 
-        //public List<ModeleMarque>? ModeleMarques { get; set; }
+        [Required]
+        public string Nom { get; set; }
+
+        public int MarqueId { get; set; }
+
+        [ForeignKey("MarqueId")]
+        public Marque Marque { get; set; }
+        public List<Vehicule> Vehicules { get; set; }
     }
 }

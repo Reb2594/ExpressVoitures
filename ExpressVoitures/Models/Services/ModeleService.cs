@@ -18,6 +18,11 @@ namespace ExpressVoitures.Models.Services
             return _context.Modeles.ToList();
         }
 
+        public Modele GetModeleById(int id)
+        {
+            return _context.Modeles.FirstOrDefault(m => m.Id == id);
+        }
+
         public void AjouterModele(Modele modele)
         {
             _context.Modeles.Add(modele);

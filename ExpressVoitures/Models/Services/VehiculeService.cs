@@ -13,15 +13,16 @@ namespace ExpressVoitures.Models.Services
             _context = context;
         }
 
-        public async Task<Vehicule> GetVehiculeById(int id)
+        public Vehicule GetVehiculeById(int id)
         {
-            return await _context.Vehicules
+            return _context.Vehicules
                 .Include(v => v.Annee)
                 .Include(v => v.Marque)
                 .Include(v => v.Modele)
                 .Include(v => v.Finition)
-                .Include(v => v.ListImage)
-                .FirstOrDefaultAsync(v => v.Id == id);
+                .Include(v => v.Reparation)
+                .Include(v => v.Images)
+                .FirstOrDefault(v => v.Id == id);
         }
 
         public List<Vehicule> GetAllVehicules()
@@ -30,8 +31,9 @@ namespace ExpressVoitures.Models.Services
                 .Include(v => v.Annee)
                 .Include(v => v.Marque)
                 .Include(v => v.Modele)
-                .Include(v => v.Finition) 
-                .Include(v => v.ListImage)
+                .Include(v => v.Finition)
+                .Include(v => v.Images)
+                .Include (v => v.Reparation)
                 .ToList() ?? new List<Vehicule>();
         }
 

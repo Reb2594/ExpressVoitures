@@ -17,6 +17,11 @@ namespace ExpressVoitures.Models.Services
         {
             return _context.Marques.ToList();
         }
+
+        public Marque GetMarqueById(int id)
+        {
+            return _context.Marques.FirstOrDefault(m => m.Id == id);
+        }
         public void AjouterMarque(Marque marque)
         {
             _context.Marques.Add(marque);

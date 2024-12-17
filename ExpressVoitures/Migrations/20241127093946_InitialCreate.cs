@@ -90,34 +90,6 @@ namespace ExpressVoitures.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Modeles",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    Nom = table.Column<string>(type: "nvarchar(max)", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Modeles", x => x.Id);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "Reparations",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    Description = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Cout = table.Column<double>(type: "float", nullable: false),
-                    VehiculeId = table.Column<int>(type: "int", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Reparations", x => x.Id);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "AspNetRoleClaims",
                 columns: table => new
                 {
@@ -224,6 +196,26 @@ namespace ExpressVoitures.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Modeles",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Nom = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    MarqueId = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Modeles", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Modeles_Marques_MarqueId",
+                        column: x => x.MarqueId,
+                        principalTable: "Marques",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Vehicules",
                 columns: table => new
                 {
@@ -233,11 +225,12 @@ namespace ExpressVoitures.Migrations
                     MarqueId = table.Column<int>(type: "int", nullable: false),
                     ModeleId = table.Column<int>(type: "int", nullable: false),
                     FinitionId = table.Column<int>(type: "int", nullable: false),
-                    ReparationId = table.Column<int>(type: "int", nullable: false),
+                    ReparationId = table.Column<int>(type: "int", nullable: true),
                     Disponible = table.Column<bool>(type: "bit", nullable: false),
                     DateVente = table.Column<DateTime>(type: "datetime2", nullable: true),
                     DateAchat = table.Column<DateTime>(type: "datetime2", nullable: false),
                     PrixAchat = table.Column<double>(type: "float", nullable: false),
+                    PrixVente = table.Column<double>(type: "float", nullable: false),
                     Description = table.Column<string>(type: "nvarchar(max)", nullable: true)
                 },
                 constraints: table =>
@@ -254,7 +247,7 @@ namespace ExpressVoitures.Migrations
                         column: x => x.FinitionId,
                         principalTable: "Finitions",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
                         name: "FK_Vehicules_Marques_MarqueId",
                         column: x => x.MarqueId,
@@ -265,12 +258,6 @@ namespace ExpressVoitures.Migrations
                         name: "FK_Vehicules_Modeles_ModeleId",
                         column: x => x.ModeleId,
                         principalTable: "Modeles",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_Vehicules_Reparations_ReparationId",
-                        column: x => x.ReparationId,
-                        principalTable: "Reparations",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -290,6 +277,27 @@ namespace ExpressVoitures.Migrations
                     table.PrimaryKey("PK_Images", x => x.Id);
                     table.ForeignKey(
                         name: "FK_Images_Vehicules_VehiculeId",
+                        column: x => x.VehiculeId,
+                        principalTable: "Vehicules",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Reparations",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Description = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Cout = table.Column<double>(type: "float", nullable: true),
+                    VehiculeId = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Reparations", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Reparations_Vehicules_VehiculeId",
                         column: x => x.VehiculeId,
                         principalTable: "Vehicules",
                         principalColumn: "Id",
@@ -341,6 +349,17 @@ namespace ExpressVoitures.Migrations
                 column: "VehiculeId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_Modeles_MarqueId",
+                table: "Modeles",
+                column: "MarqueId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Reparations_VehiculeId",
+                table: "Reparations",
+                column: "VehiculeId",
+                unique: true);
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Vehicules_AnneeId",
                 table: "Vehicules",
                 column: "AnneeId");
@@ -359,12 +378,6 @@ namespace ExpressVoitures.Migrations
                 name: "IX_Vehicules_ModeleId",
                 table: "Vehicules",
                 column: "ModeleId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Vehicules_ReparationId",
-                table: "Vehicules",
-                column: "ReparationId",
-                unique: true);
         }
 
         /// <inheritdoc />
@@ -389,6 +402,9 @@ namespace ExpressVoitures.Migrations
                 name: "Images");
 
             migrationBuilder.DropTable(
+                name: "Reparations");
+
+            migrationBuilder.DropTable(
                 name: "AspNetRoles");
 
             migrationBuilder.DropTable(
@@ -404,13 +420,10 @@ namespace ExpressVoitures.Migrations
                 name: "Finitions");
 
             migrationBuilder.DropTable(
-                name: "Marques");
-
-            migrationBuilder.DropTable(
                 name: "Modeles");
 
             migrationBuilder.DropTable(
-                name: "Reparations");
+                name: "Marques");
         }
     }
 }

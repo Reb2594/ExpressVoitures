@@ -6,9 +6,12 @@ namespace ExpressVoitures.Models.Entities
     {
         [Key]
         public int Id { get; set; }
-        public required string Nom { get; set; }
-        public List<Vehicule> Vehicules { get; set; }
 
-        //public List<ModeleMarque>? ModeleMarques { get; set; }
+        [Required]
+        public string Nom { get; set; }
+
+        // Propriété de navigation pour les modèles associés
+        public List<Modele> Modeles { get; set; }
+        public List<Vehicule> Vehicules { get; set; }
     }
 }

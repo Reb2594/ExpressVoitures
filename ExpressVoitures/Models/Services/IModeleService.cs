@@ -9,5 +9,6 @@ namespace ExpressVoitures.Models.Services
         void AjouterModele(Modele modele);
         void ModifierModele(Modele modele);
         void SupprimerModele(int id);
+        Modele GetModeleById(int id);
     }
 }

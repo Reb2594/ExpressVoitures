@@ -17,6 +17,339 @@ html {
   min-height: 100%;
 }
 
+a{
+    color: rgba(44, 24, 16, 1);
+}
+
+a:hover {
+    color: rgba(44, 24, 16, 1);
+    font-weight:500;
+}
+
 body {
   margin-bottom: 60px;
+  font-family: Libre Baskerville;
+}
+
+h1 {
+    color: rgba(121, 97, 87, 1);
+    font-style: italic;
+    font-weight: 400;
+    font-size: 44px;
+    text-align: center;
+    line-height: 54.56px;
+}
+
+h2 {
+    width: 450.69px;
+    height: 54px;
+    top: 207px;
+    left: 495px;
+    gap: 0px;
+    opacity: 0px;
+    font-family: Libre Baskerville;
+    font-size: 41.54px;
+    font-weight: 700;
+    line-height: 51.51px;
+    letter-spacing: -0.07em;
+    text-align: center;
+    text-underline-position: from-font;
+    text-decoration-skip-ink: none;
+}
+
+.btn {
+    background-color: #D9A963;
+    width: Fixed (175px);
+    height: Hug (61px);
+    top: 380px;
+    left: 633px;
+    padding: 20px;
+    gap: 10px;
+    border-radius: 5px;
+    opacity: 0px;
+    font-family: DM Sans;
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 20.83px;
+    text-align: center;
+    text-underline-position: from-font;
+    text-decoration-skip-ink: none;
+    color: rgba(44, 24, 16, 1);
+    border-color: white;
+}
+
+    .btn-primary:hover {
+        background: rgba(185, 144, 86, 1);
+        font-family: DM Sans;
+        font-size: 16px;
+        font-weight: 500;
+        line-height: 20.83px;
+        text-align: center;
+        text-underline-position: from-font;
+        text-decoration-skip-ink: none;
+        border-color: white;
+    }
+
+    
+
+
+.btn-secondary {
+    width: Hug (145px)px;
+    height: Hug (61px)px;
+    top: 20px;
+    left: 20px;
+    padding: 20px 23px 20px 23px;
+    gap: 10px;
+    border-radius: 5px;
+    background: rgba(217, 169, 99, 1);
+    font-family: DM Sans;
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 20.83px;
+    text-align: center;
+    text-underline-position: from-font;
+    text-decoration-skip-ink: none;
+}
+
+    .btn-secondary:hover {
+        background: rgba(185, 144, 86, 1);
+        font-family: DM Sans;
+        font-size: 16px;
+        font-weight: 500;
+        line-height: 20.83px;
+        text-align: center;
+        text-underline-position: from-font;
+        text-decoration-skip-ink: none;
+        border-color: white;
+    }
+
+.btn-add {
+    width: 62px;
+    height: 62px;
+    top: 20px;
+    left: 20px;
+    gap: 0px;
+    opacity: 0px;
+    font-family: DM Sans;
+    font-size: 38px;
+    font-weight: 400;
+    text-align: left;
+    text-underline-position: from-font;
+    text-decoration-skip-ink: none;
+    background: rgba(242, 227, 206, 1);
+    border: 1px solid rgba(217, 169, 99, 1)
+}
+
+    .btn-add:hover {
+        background: rgba(185, 144, 86, 1);
+        border: 1px solid rgba(217, 169, 99, 1)
+    }
+
+.navbar {
+    width: 1440px;
+    height: 91px;
+    gap: 0px;
+    opacity: 0px;
+    text-decoration: none;
+    color: #2C1810;
+    display: flex;
+    margin-bottom: 80px;
+}
+
+.navbar-brand {
+    display: flex;
+    width: 221px;
+    height: 25px;
+    top: 1px;
+    gap: 0px;
+    opacity: 0px;
+    font-family: Libre Baskerville;
+    font-size: 20px;
+    font-weight: 700;
+    line-height: 24.8px;
+    letter-spacing: -0.07em;
+    text-align: left;
+    text-underline-position: from-font;
+    text-decoration-skip-ink: none;
+}
+
+.navbar-menu {
+    display: flex;
+    font-family: Libre Baskerville;
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 17.36px;
+    text-align: left;
+    text-underline-position: from-font;
+    text-decoration-skip-ink: none;
+    left: 930px;
+    height: 17px;
+    top: 38px;
+    width : 580px;
+}
+
+.pb-3 {
+    width: 1320px;
+    height: 1765px;
+    top: 231px;
+    left: 70px;
+    gap: 0px;
+    border-radius: 7px;
+    opacity: 0px;
+}
+
+.accueil {
+    width: 120px;
+    height: 17px;
+    top: 38px;
+    left: 930px;
+    gap: 0px;
+    opacity: 0px;
+}
+
+    .accueil:hover {
+        font-weight: 700;
+        color: rgba(0, 0, 0, 1);
+    }
+
+.ajouter-voiture {
+    width: 190px;
+    height: 17px;
+    top: 38px;
+    left: 1057px;
+    opacity: 0px;
+}
+
+    .ajouter-voiture:hover {
+        font-weight: 700;
+        color: rgba(0, 0, 0, 1);
+    }
+
+.deconnecter {
+    width: 170px;
+    height: 17px;
+    top: 38px;
+    left: 1244px;
+    gap: 0px;
+    opacity: 0px;
+}
+
+    .deconnecter:hover {
+        font-weight: 700;
+        color: rgba(0, 0, 0, 1);
+    }
+
+.connecter:hover {
+    font-weight: 700;
+    color: rgba(0, 0, 0, 1);
+}
+
+p.card-text {
+    width: 61px;
+    height: 23px;
+    gap: 0px;
+    opacity: 0px;
+    font-family: DM Sans;
+    font-size: 18px;
+    font-weight: 400;
+    line-height: 23.44px;
+    text-align: left;
+    text-underline-position: from-font;
+    text-decoration-skip-ink: none;
+    color: rgba(121, 97, 87, 1);
+}
+
+h5.card-title {
+    width: 152px;
+    height: 27px;
+    gap: 0px;
+    opacity: 0px;
+    font-family: Libre Baskerville;
+    font-size: 22px;
+    font-weight: 700;
+    line-height: 27.28px;
+    text-align: left;
+    text-underline-position: from-font;
+    text-decoration-skip-ink: none;
+    color: rgba(44, 24, 16, 1);
+}
+
+.form-label {
+    font-family: DM Sans;
+    font-size: 18px;
+    font-weight: 400;
+    line-height: 23.44px;
+    text-align: left;
+    text-underline-position: from-font;
+    text-decoration-skip-ink: none;
+    color: rgba(44, 24, 16, 1);
+}
+
+
+.form-check-label {
+    font-family: DM Sans;
+}
+
+.form-container-a {
+    max-width: 800px;
+    margin: 20px auto;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    font-family: DM Sans;
+}
+
+.form-container-b{
+    margin-left: 2em;
+}
+
+input {
+    margin-right: 1em;
+    font-family: inherit;
+    font-size: inherit;
+    line-height: inherit;
+    width: 300px;
+    height: 64px;
+    top: 994px;
+    left: 538px;
+    border-radius: 3px;
+    border: 1px solid;
+}
+
+.form-control {
+    display: block;
+    width: 100%;
+    padding: .375rem .75rem;
+    font-size: 1rem;
+    font-weight: 400;
+    line-height: 1.5;
+    color: #212529;
+    background-color: #fff;
+    background-clip: padding-box;
+    border: 1px solid;
+    appearance: none;
+    border-radius: .25rem;
+    transition: border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+    height: 64px;
+}
+
+input[type="checkbox"] {
+    height: 15px;
+    width: 15px;
+    margin-left: 1em;
+}
+
+.btn-add:not(:disabled):not(.disabled) {
+    cursor: pointer;
+    color: rgb(217, 169, 99);
+}
+
+.form-control[type="file"]:not(:disabled):not([readonly]) {
+    cursor: pointer;
+    width: 600px;
+    height: 35px;
+    top: 1111px;
+    left: 538px;
+    border-radius: 3px;
+    border: 1px 0px 0px 0px;
 }

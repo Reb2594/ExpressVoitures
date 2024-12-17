@@ -1,0 +1,19 @@
+﻿
+@model ExpressVoitures.Models.ViewModels.VehiculeViewModel
+
+@{
+    ViewData["Title"] = "Voiture modifiée";
+}
+
+<div class="container text-center mt-5">
+    <h1>
+        Votre
+        <span>@(Model.Annees?.FirstOrDefault(a => a.Value == Model.AnneeId.ToString())?.Text ?? "Année inconnue")</span>
+        <span>@(Model.Marques?.FirstOrDefault(m => m.Value == Model.MarqueId.ToString())?.Text ?? "Marque inconnue")</span>
+        <span>@(Model.Modeles?.FirstOrDefault(mo => mo.Value == Model.ModeleId.ToString())?.Text ?? "Modèle inconnu")</span>
+        <span>@(Model.Finitions?.FirstOrDefault(f => f.Value == Model.FinitionId.ToString())?.Text ?? "Finition inconnue")</span>
+    </h1>
+    <p>a bien été modifiée !</p>
+    <a href="@Url.Action("Details", "Vehicule", new { id = Model.Id })" class="btn btn-primary">Voir la voiture</a>
+</div>
+

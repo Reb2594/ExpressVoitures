@@ -72,7 +72,7 @@
 
 body {
   margin: 0;
-  font-family: var(--bs-body-font-family);
+  font-family: 'Libre Baskerville';
   font-size: var(--bs-body-font-size);
   font-weight: var(--bs-body-font-weight);
   line-height: var(--bs-body-line-height);
@@ -106,9 +106,12 @@ h1, .h1 {
   font-size: calc(1.375rem + 1.5vw);
 }
 @media (min-width: 1200px) {
-  h1, .h1 {
-    font-size: 2.5rem;
-  }
+    h1, .h1 {
+        font-size: 44px;
+        font-style: italic;
+        color: #796157;
+        font-weight: 400;
+    }
 }
 
 h2, .h2 {
@@ -229,12 +232,13 @@ sup {
 }
 
 a {
-  color: #0d6efd;
-  text-decoration: underline;
+    /*color: #0d6efd;
+  text-decoration: underline;*/
 }
-a:hover {
-  color: #0a58ca;
-}
+    a:hover {
+       /* color: #0a58ca;
+        */
+    }
 
 a:not([href]):not([class]), a:not([href]):not([class]):hover {
   color: inherit;

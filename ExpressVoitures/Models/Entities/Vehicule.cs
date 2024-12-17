@@ -12,9 +12,6 @@ namespace ExpressVoitures.Models.Entities
         public Marque Marque { get; set; }
         public int ModeleId { get; set; }
         public Modele Modele { get; set; }
-
-        //public int ModeleMarqueId { get; set; }
-        //public required ModeleMarque ModeleMarque { get; set; }
         public int FinitionId { get; set; }
         public Finition Finition { get; set; }
         public int ReparationId { get; set; }
@@ -23,8 +20,12 @@ namespace ExpressVoitures.Models.Entities
         public DateTime? DateVente { get; set; }
         public DateTime DateAchat { get; set; }
         public double PrixAchat { get; set; }
+        public double PrixVente { get; set; }
         public string? Description { get; set; }
-        public List<Image>? ListImage { get; set; }
-        
+        public List<Image> Images { get; set; } = new List<Image>();
+
+        // Propriété calculée pour retourner les URLs des images
+        public List<string> ImageUrls => Images.Select(img => img.Url).ToList();
+        //public List<string>? ImageUrls { get; set; }
     }
 }

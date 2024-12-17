@@ -13,6 +13,11 @@ namespace ExpressVoitures.Models.Services
             _context = context;
         }
 
+        public Annee GetAnneeById(int id)
+        {
+            return _context.Annees.FirstOrDefault(m => m.Id == id);
+        }
+
         public IEnumerable<SelectListItem> GetAllAnnees()
         {
             return _context.Annees

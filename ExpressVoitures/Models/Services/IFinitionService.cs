@@ -8,5 +8,6 @@ namespace ExpressVoitures.Models.Services
         void AjouterFinition(Finition finition) ;
         void ModifierFinition(Finition finition);
         void SupprimerFinition(int id);
+        Finition GetFinitionById(int id);
     }
 }

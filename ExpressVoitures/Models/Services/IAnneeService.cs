@@ -6,5 +6,6 @@ namespace ExpressVoitures.Models.Services
     public interface IAnneeService
     {
         IEnumerable<SelectListItem> GetAllAnnees();
+        Annee GetAnneeById(int id);
     }
 }

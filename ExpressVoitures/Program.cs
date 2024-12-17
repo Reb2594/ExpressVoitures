@@ -2,6 +2,7 @@ using ExpressVoitures.Data;
 using ExpressVoitures.Models.Services;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using ExpressVoitures.Areas.Identity.Data;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -52,6 +53,7 @@ using (var scope = app.Services.CreateScope())
     userManager.CreateAsync(adminUser);
 }
 
+
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
@@ -73,7 +75,7 @@ app.UseAuthorization();
 
 app.MapControllerRoute(
     name: "default",
-    pattern: "{controller=Home}/{action=Index}/{id?}");
+    pattern: "{controller=Vehicule}/{action=Index}/{id?}");
 app.MapRazorPages();
 
 app.Run();

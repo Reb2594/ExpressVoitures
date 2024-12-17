@@ -105,11 +105,16 @@ namespace ExpressVoitures.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
+                    b.Property<int>("MarqueId")
+                        .HasColumnType("int");
+
                     b.Property<string>("Nom")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("MarqueId");
 
                     b.ToTable("Modeles");
                 });
@@ -122,17 +127,19 @@ namespace ExpressVoitures.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<double>("Cout")
+                    b.Property<double?>("Cout")
                         .HasColumnType("float");
 
                     b.Property<string>("Description")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("VehiculeId")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("VehiculeId")
+                        .IsUnique();
 
                     b.ToTable("Reparations");
                 });
@@ -172,7 +179,10 @@ namespace ExpressVoitures.Migrations
                     b.Property<double>("PrixAchat")
                         .HasColumnType("float");
 
-                    b.Property<int>("ReparationId")
+                    b.Property<double>("PrixVente")
+                        .HasColumnType("float");
+
+                    b.Property<int?>("ReparationId")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
@@ -184,9 +194,6 @@ namespace ExpressVoitures.Migrations
                     b.HasIndex("MarqueId");
 
                     b.HasIndex("ModeleId");
-
-                    b.HasIndex("ReparationId")
-                        .IsUnique();
 
                     b.ToTable("Vehicules");
                 });
@@ -396,8 +403,30 @@ namespace ExpressVoitures.Migrations
             modelBuilder.Entity("ExpressVoitures.Models.Entities.Image", b =>
                 {
                     b.HasOne("ExpressVoitures.Models.Entities.Vehicule", "Vehicule")
-                        .WithMany("ListImage")
+                        .WithMany("Images")
                         .HasForeignKey("VehiculeId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Vehicule");
+                });
+
+            modelBuilder.Entity("ExpressVoitures.Models.Entities.Modele", b =>
+                {
+                    b.HasOne("ExpressVoitures.Models.Entities.Marque", "Marque")
+                        .WithMany("Modeles")
+                        .HasForeignKey("MarqueId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.Navigation("Marque");
+                });
+
+            modelBuilder.Entity("ExpressVoitures.Models.Entities.Reparation", b =>
+                {
+                    b.HasOne("ExpressVoitures.Models.Entities.Vehicule", "Vehicule")
+                        .WithOne("Reparation")
+                        .HasForeignKey("ExpressVoitures.Models.Entities.Reparation", "VehiculeId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -415,7 +444,7 @@ namespace ExpressVoitures.Migrations
                     b.HasOne("ExpressVoitures.Models.Entities.Finition", "Finition")
                         .WithMany("Vehicules")
                         .HasForeignKey("FinitionId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.HasOne("ExpressVoitures.Models.Entities.Marque", "Marque")
@@ -430,12 +459,6 @@ namespace ExpressVoitures.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("ExpressVoitures.Models.Entities.Reparation", "Reparation")
-                        .WithOne("Vehicule")
-                        .HasForeignKey("ExpressVoitures.Models.Entities.Vehicule", "ReparationId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
                     b.Navigation("Annee");
 
                     b.Navigation("Finition");
@@ -443,8 +466,6 @@ namespace ExpressVoitures.Migrations
                     b.Navigation("Marque");
 
                     b.Navigation("Modele");
-
-                    b.Navigation("Reparation");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -510,6 +531,8 @@ namespace ExpressVoitures.Migrations
 
             modelBuilder.Entity("ExpressVoitures.Models.Entities.Marque", b =>
                 {
+                    b.Navigation("Modeles");
+
                     b.Navigation("Vehicules");
                 });
 
@@ -518,15 +541,11 @@ namespace ExpressVoitures.Migrations
                     b.Navigation("Vehicules");
                 });
 
-            modelBuilder.Entity("ExpressVoitures.Models.Entities.Reparation", b =>
-                {
-                    b.Navigation("Vehicule")
-                        .IsRequired();
-                });
-
             modelBuilder.Entity("ExpressVoitures.Models.Entities.Vehicule", b =>
                 {
-                    b.Navigation("ListImage");
+                    b.Navigation("Images");
+
+                    b.Navigation("Reparation");
                 });
 #pragma warning restore 612, 618
         }

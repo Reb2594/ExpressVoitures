@@ -4,8 +4,9 @@ namespace ExpressVoitures.Models.Services
 {
     public interface IImagesService
     {
-        Task<List<Image>> GetImagesByVehiculeId(int vehiculeId);
-        void AjouterImage(Image image);
-        void SupprimerImage(int id);
+        Task<List<string>> SauvegarderImagesAsync(List<IFormFile> fichiers);
+        List<string> GetImagesUrlsByVehiculeId(int vehiculeId);
+        Task AjouterImage(int vehiculeId, string imageUrl);
+        void SupprimerImage(int vehiculeId, string imageUrl);
     }
 }

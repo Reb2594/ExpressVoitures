@@ -11,21 +11,26 @@
 </head>
 <body>
     <header>
-        <div class="container">
+        <div class="container a">
             <nav class="navbar">
                 <div class="navbar-brand">
-                    <a href="/">ExpressVoiture</a>
+                    <a href="/">Express Voitures</a>
                 </div>
                 <div class="navbar-menu">
-                    <a href="/">Accueil</a>
+                    <!-- Lien Accueil -->
+                    <a href="/" class="nav-link accueil">Accueil</a>
+
                     @if (User.Identity.IsAuthenticated)
                     {
-                            <a href="/Vehicule/Create">Ajouter une voiture</a>
-                            <a href="/Identity/Account/Logout">Se déconnecter</a>
+                        <!-- Lien Ajouter une voiture -->
+                        <a href="/Vehicule/Create" class="nav-link ajouter-voiture">Ajouter une voiture</a>
+                        <!-- Lien Se déconnecter -->
+                        <a href="/Identity/Account/Logout" class="nav-link deconnecter">Se déconnecter</a>
                     }
                     else
                     {
-                            <a href="/Identity/Account/Login">Se connecter</a>
+                        <!-- Lien Se connecter -->
+                        <a href="/Identity/Account/Login" class="nav-link connecter">Se connecter</a>
                     }
                 </div>
             </nav>
@@ -42,6 +47,9 @@
             &copy; 2024 - ExpressVoitures - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
         </div>
     </footer>
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.4/dist/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/jquery-validation@1.19.5/dist/jquery.validate.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/jquery-validation-unobtrusive@3.2.12/dist/jquery.validate.unobtrusive.min.js"></script>
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>

@@ -1,64 +1,299 @@
 ﻿@model ExpressVoitures.Models.ViewModels.VehiculeViewModel
 
-<h2>Modifier le véhicule</h2>
+<br/>
+<h1 style="text-align:center;">Modifier la voiture</h1>
+<div style="text-align:center; font-family:'Libre Baskerville';font-size:16px;font-weight:400;color: rgba(44, 24, 16, 1);">Tous les éléments suivis d'un * sont obligatoires</div>
+<br/>
 
-<form asp-action="Edit" method="post">
+<form asp-action="Edit" method="post" enctype="multipart/form-data">
     <input type="hidden" asp-for="Id" />
 
-<div class="form-group">
-    <label>Année</label>
-    <select asp-for="AnneeId" class="form-control" asp-items="Model.Annees"></select>
-</div>
+    @if (TempData["Message"] != null)
+    {
+        <div class="alert alert-success">
+            @TempData["Message"]
+        </div>
+    }
 
-<div class="form-group">
-    <label>Marque</label>
-    <select asp-for="MarqueId" class="form-control" asp-items="Model.Marques"></select>
-    <input asp-for="NewMarque" class="form-control" placeholder="Nouvelle marque" />
-</div>
+    @if (TempData["Error"] != null)
+    {
+        <div class="alert alert-danger">
+            @TempData["Error"]
+        </div>
+    }
 
-<div class="form-group">
-    <label>Modèle</label>
-    <select asp-for="ModeleId" class="form-control" asp-items="Model.Modeles"></select>
-    <input asp-for="NewModele" class="form-control" placeholder="Nouveau modèle" />
-</div>
+    <div class="form-container-a">
+        <div class="form-container-b">
+    <div class="form-group">
+                <label style="font-weight:500;">Année*</label>
+                <div class="row">
+                    <div class="col-md-5">
+                <select asp-for="AnneeId" class="form-control" asp-items="Model.Annees"></select>
+                <span asp-validation-for="AnneeId" class="text-danger"></span>
+            </div>
+        </div>
+    </div>
 
-<div class="form-group">
-    <label>Finition</label>
-    <select asp-for="FinitionId" class="form-control" asp-items="Model.Finitions"></select>
-    <input asp-for="NewFinition" class="form-control" placeholder="Nouvelle finition" />
-</div>
+    <div class="form-group">
+        <div class="row">
+                    <label style="font-weight:500;">Marque*</label>
+                    <div class="col-md-5">
+                <select asp-for="MarqueId" asp-items="Model.Marques" id="marqueDropdown" class="form-control">
+                    <option value=""> </option>
+                </select>
+                <span asp-validation-for="MarqueId" class="text-danger"></span>
+            </div>
+            <div class="col-md-7">
+                <input type="text" name="newMarque" placeholder="Nouvelle marque" />
+                        <button type="submit" class="btn btn-add" name="action" value="AddMarque"> + </button>
+            </div>
+        </div>
+    </div>
 
-<div class="form-group">
-    <label>Disponible</label>
-    <input asp-for="Disponible" type="checkbox" />
-</div>
+    <div class="form-group">
+        <div class="row">
+                    <label style="font-weight:500;">Modèle*</label>
+                    <div class="col-md-5">
+                <select asp-for="ModeleId" id="modeleDropdown" class="form-control" asp-items="Model.Modeles">
+                    <option value=""> </option>
+                </select>
+                <span asp-validation-for="ModeleId" class="text-danger"></span>
+            </div>
+            <div class="col-md-7">
+                <!-- L'ID de la marque sélectionnée sera automatiquement envoyé avec le modèle -->
+                <input type="hidden" id="selectedMarqueId" name="MarqueId" value="@Model.MarqueId" />
+                <input type="text" name="newModele" placeholder="Nouveau modèle" />
+                        <button type="submit" class="btn btn-add" name="action" value="AddModele"> + </button>
+            </div>
+        </div>
+    </div>
 
-<div class="form-group">
-    <label>Date d'achat</label>
-    <input asp-for="DateAchat" type="date" class="form-control" />
-</div>
+    <div class="form-group">
+        <div class="row">
+                    <label style="font-weight:500;">Finition*</label>
+                    <div class="col-md-5">
+                <select asp-for="FinitionId" asp-items="Model.Finitions" id="finitionDropdown" class="form-control">
+                    <option value=""> </option>
+                </select>
+                        <span asp-validation-for="FinitionId" class="text-danger"></span>
+            </div>
+            <div class="col-md-7">
+                <input type="text" name="newFinition" placeholder="Nouvelle finition" />
+                        <button type="submit" class="btn btn-add" name="action" value="AddFinition"> + </button>
+            </div>
+        </div>
+    </div>
 
-<div class="form-group">
-    <label>Prix d'achat</label>
-    <input asp-for="PrixAchat" type="number" step="0.01" class="form-control" />
-</div>
+    <div class="form-group">        
+        <div class="row">
+                    <div class="col-md-5">
+                        <label style="font-weight:500;">Prix d'achat (€)*</label>
+                <input asp-for="PrixAchat" type="number" step="100.00" class="form-control" />
+                        <span asp-validation-for="PrixAchat" class="text-danger"></span>
+            </div>
+                    <div class="col-md-5">
+                        <label style="font-weight:500;">Date d'achat*</label>
+                <input asp-for="DateAchat" type="date" class="form-control" />
+                        <span asp-validation-for="DateAchat" class="text-danger"></span>
+            </div>            
+        </div>
+    </div>
 
-<div class="form-group">
-    <label>Description</label>
-    <textarea asp-for="Description" class="form-control"></textarea>
-</div>
+    <div class="form-group">
+                <label style="font-weight:500;">Description</label>
+        <div class="row">
+                    <div class="col-md-10">
+                <textarea asp-for="Description" class="form-control"></textarea>
+            </div>
+        </div>
+    </div>
 
-<div class="form-group">
-    <label>Réparation</label>
-    <input asp-for="ReparationDescription" class="form-control" placeholder="Description de la réparation" />
-    <input asp-for="ReparationCout" type="number" step="0.01" class="form-control" placeholder="Coût de la réparation" />
-</div>
+    <div class="form-group">        
+        <div class="row">
+                    <div class="col-md-5">
+                        <label style="font-weight:500;">Description de la réparation*</label>
+                <input asp-for="ReparationDescription" class="form-control"/>
+                        <span asp-validation-for="ReparationDescription" class="text-danger"></span>
+            </div>
+                    <div class="col-md-5">
+                        <label style="font-weight:500;">Coût de la réparation (€)*</label>
+                <input asp-for="ReparationCout" type="number" step="100.00" class="form-control"/>
+                        <span asp-validation-for="ReparationCout" class="text-danger"></span>
+            </div>
+        </div>
+    </div>
 
-<div class="form-group">
-    <label asp-for="ImageFiles">Images</label>
-    <input type="file" asp-for="ImageFiles" multiple accept="image/jpeg,image/png" class="form-control" />
-    <span asp-validation-for="ImageFiles" class="text-danger"></span><span asp-validation-for="ImageFiles" class="text-danger"></span>
-</div>
+    <!-- Affichage des images existantes -->
+    <div class="form-group">
+                <label style ="font-weight:500;">Images existantes</label>
+        @if (Model.ImageUrls != null && Model.ImageUrls.Any())
+        {
+            <div>
+                @foreach (var imageUrl in Model.ImageUrls)
+                {
+                    <div class="image-preview">
+                        <img src="@Url.Content($"~/{imageUrl}")" alt="Image du véhicule" style="height: 100px; width: auto; margin-right: 10px;" />
+                        <a href="@Url.Action("DeleteImage", "Vehicule", new { id = Model.Id, imageUrl = imageUrl})" class="btn btn-danger">Supprimer</a>
+                        <!--<input type="checkbox" name="ImagesToDelete" value="@imageUrl" /> Supprimer-->
+                    </div>
+                }
+            </div>
+        }
+        else
+        {
+            <p>Aucune image associée au véhicule.</p>
+        }
+    </div>
 
-<button type="submit" class="btn btn-primary">Modifier</button>
+    <!-- Champ pour télécharger de nouvelles images -->
+    <div class="form-group">
+        <div class="row">
+                    <div class="col-md-10">
+                        <label asp-for="ImageFiles" style="font-weight:500;"><strong>Ajouter des images</strong></label>
+                <input type="file" asp-for="ImageFiles" multiple accept="image/jpeg,image/png" class="form-control" />
+                <span asp-validation-for="ImageFiles" class="text-danger"></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="form-group">        
+        <div class="row">
+                    <div class="col-md-5">
+                        <label style="font-weight:500;">Prix de vente (€)*</label>
+                <input asp-for="PrixVente" type="number" step="100.00" class="form-control" />
+                        <span asp-validation-for="PrixVente" class="text-danger"></span>
+            </div>
+                    <div class="col-md-5">
+                        <label style="font-weight:500;">Date de vente</label>
+                <input asp-for="DateVente" type="date" class="form-control" />
+            </div>
+        </div>
+    </div>
+
+    <div class="form-group">        
+        <div class="row">
+            <div class="col-md-3">
+                        <label style="font-weight:500;">Disponible</label>
+                <input asp-for="Disponible" type="checkbox" />
+            </div>
+        </div>
+    </div>
+            <div class="d-flex justify-content-center align-items-start">
+    <button type="submit" class="btn btn-primary btn-lg" name="action" value="EditVehicule">Publier</button>
+    </div>
 </form>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        const marqueDropdown = document.getElementById('marqueDropdown');
+        const modeleDropdown = document.getElementById('modeleDropdown');
+        const selectedMarqueId = "@Model.MarqueId"; // ID de la marque sélectionnée côté serveur
+        const selectedModeleId = "@Model.ModeleId"; // ID du modèle sélectionné côté serveur
+
+        // Fonction pour charger les modèles en fonction de la marque sélectionnée
+        function loadModeles(marqueId, selectedModeleId) {
+        // Effacer les anciens modèles pour éviter les doublons
+            modeleDropdown.innerHTML = '<option value="">Sélectionnez un modèle</option>';
+            if (marqueId) {
+                fetch(`/Vehicule/GetModelesByMarque?marqueId=${marqueId}`)
+                    .then(response => response.json())
+                    .then(data => {
+                        const existingModelIds = new Set();
+                        Array.from(modeleDropdown.options).forEach(option => existingModelIds.add(option.value));
+
+                        if (data.length === 0) {
+                            modeleDropdown.innerHTML = '<option value="">Aucun modèle disponible</option>';
+                        } else {
+                            data.forEach(modele => {
+                                // Éviter d'ajouter un doublon
+                                if (!existingModelIds.has(modele.id.toString())) {
+                                    const option = document.createElement('option');
+                                    option.value = modele.id;
+                                    option.textContent = modele.nom;
+                                    if (modele.id == selectedModeleId) {
+                                        option.selected = true;
+                                    }
+                                    modeleDropdown.appendChild(option);
+                                }
+                            });
+                        }
+                    })
+                    .catch(error => {
+                        console.error('Erreur lors de la récupération des modèles:', error);
+                        modeleDropdown.innerHTML = '<option value="">Erreur lors du chargement des modèles</option>';
+                    });
+            }
+        }
+
+        // Charger les modèles automatiquement si une marque est sélectionnée au chargement de la page
+        if (selectedMarqueId) {
+            marqueDropdown.value = selectedMarqueId; // Pré-sélectionner la marque
+            loadModeles(selectedMarqueId, selectedModeleId); // Charger les modèles pour cette marque
+        }
+
+        // Mettre à jour les modèles lorsque la marque change
+        marqueDropdown.addEventListener('change', function () {
+            loadModeles(this.value, null); // Charger sans sélectionner de modèle particulier
+        });
+
+        // Si TempData indique qu'il faut recharger les modèles, on simule un changement de marque
+    @if (TempData["ReloadModels"] != null && (bool)TempData["ReloadModels"])
+    {
+        <text>
+                        marqueDropdown.dispatchEvent(new Event('change'));
+        </text>
+    }
+
+        // Gestion du bouton pour ajouter une marque, un modèle ou une finition
+        const reloadModelsButton = document.querySelectorAll(
+            '[name="action"][value="AddMarque"], [name="action"][value="AddModele"], [name="action"][value="AddFinition"]'
+        );
+        if (reloadModelsButton) {
+            reloadModelsButton.forEach(button => {
+                button.addEventListener('click', function () {
+                    // Réinitialiser la liste des modèles avant de les ajouter
+                    modeleDropdown.innerHTML = '<option value="">Sélectionnez un modèle</option>';
+
+                    const marqueId = marqueDropdown.value;
+                    if (marqueId) {
+                        // Forcer la mise à jour des modèles pour la marque sélectionnée
+                        fetch(`/Vehicule/GetModelesByMarque?marqueId=${marqueId}`)
+                            .then(response => response.json())
+                            .then(data => {
+                                // Réinitialiser la liste des modèles à chaque ajout
+                                const existingModels = Array.from(modeleDropdown.options).map(option => option.value);
+
+                                data.forEach(modele => {
+                                    // Vérifier si le modèle est déjà dans la liste pour éviter les doublons
+                                    if (!existingModels.includes(modele.id.toString())) {
+                                        const option = document.createElement('option');
+                                        option.value = modele.id;
+                                        option.textContent = modele.nom;
+
+                                        // Sélectionner le modèle actuel si une valeur est déjà définie
+                                        if (selectedModeleId && modele.id === selectedModeleId) {
+                                            option.selected = true;
+                                        }
+
+                                        modeleDropdown.appendChild(option);
+                                    }
+                                });
+                            })
+                            .catch(error => {
+                                console.error('Erreur lors de la récupération des modèles:', error);
+                            });
+                    }
+                });
+            });
+        }
+    });
+</script>
+
+
+
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

@@ -1,5 +1,6 @@
 ﻿using ExpressVoitures.Data;
 using ExpressVoitures.Models.Entities;
+using Microsoft.EntityFrameworkCore;
 
 namespace ExpressVoitures.Models.Services
 {
@@ -10,6 +11,16 @@ namespace ExpressVoitures.Models.Services
         public ReparationService(ApplicationDbContext context) 
         {
             _context = context; 
+        }
+
+        public Reparation GetReparationByVehiculeId(int vehiculeId)
+        {
+            var vehicule = _context.Vehicules
+                .Include(v => v.Reparation)
+                .FirstOrDefault(v => v.Id == vehiculeId);
+
+            return vehicule?.Reparation;
+
         }
 
         public void AjouterReparation(Reparation reparation)

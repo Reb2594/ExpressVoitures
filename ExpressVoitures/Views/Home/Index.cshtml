@@ -18,14 +18,21 @@
             {
                 <div class="col-md-6">
                     <div class="card">
-                        <img src="@vehicule.ListImage.FirstOrDefault()?.Url" class="card-img-top" alt="Photo du véhicule" />
-                        <div class="card-body">
-                            <h5 class="card-title">@vehicule.Marque.Nom @vehicule.Modele.Nom</h5>
-                            <p class="card-text">
-                                Prix de vente : <strong>@vehicule.PrixAchat €</strong><br />
-                                Année : @vehicule.Annee.Nom<br />
-                                Disponible : @(vehicule.Disponible ? "Oui" : "Non")
-                            </p>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <img src="@vehicule.ListImage.FirstOrDefault()?.Url" class="card-img-top" alt="Photo du véhicule" />
+                            </div>
+                            <div class="card-body">
+                                <div class="col-md-6">
+                                    <h5 class="card-title"><strong>@vehicule.PrixVente €</strong></h5>
+                                    <p class="card-text">                                
+                                        @vehicule.Annee.Nom<br />
+                                        @vehicule.Marque.Nom<br />
+                                        @vehicule.Modele.Nom<br />
+                                        @vehicule.Finition.Nom
+                                    </p>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>

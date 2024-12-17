@@ -19,6 +19,11 @@ namespace ExpressVoitures.Models.Services
             return _context.Finitions.ToList();
         }
 
+        public Finition GetFinitionById(int id)
+        {
+            return _context.Finitions.FirstOrDefault(m => m.Id == id);
+        }
+
         public void AjouterFinition(Finition finition)
         {
             _context.Finitions.Add(finition);
