@@ -8,7 +8,7 @@ Ce projet respecte les principes de l'architecture MVC (Model-View-Controller) e
 
 ## Prérequis
 
-Avant de cloner et exécuter ce projet, assurez-vous d'avoir installé les éléments suivants :
+Avant de cloner et exécuter ce projet, assurez vous d'avoir installé les éléments suivants :
 
 - [.NET 6.0 SDK](https://dotnet.microsoft.com/download)
 - [SQL Server](https://www.microsoft.com/en-us/sql-server/sql-server-downloads)
@@ -22,7 +22,7 @@ Avant de cloner et exécuter ce projet, assurez-vous d'avoir installé les élé
 
 2. Restaurer les dépendances : 
 
-Après avoir cloné le projet, vous devez restaurer les dépendances NuGet et les packages npm si nécessaire.
+Après avoir cloné le projet, vous devez restaurer les dépendances NuGet si nécessaire.
 
 En tapant dotnet restore dans la console du gestionnaire de package.
 
@@ -61,7 +61,7 @@ Dès le premier lancement du projet, afin de faciliter la démo, il sera possibl
 Une fois l'application lancée, vous pouvez interagir avec elle via l'interface web. Voici quelques fonctionnalités principales :
 
 - **Page d'accueil** : Affiche la liste des véhicules enregistrés. 
-Les véhicules marqués comme disponibles sont visibles par tous les utilisateurs tandis que ceux qui sont marqués comme non-disponibles ne sont visibles que pour les utilisateurs conectés en tant qu'admin.
+Les véhicules marqués comme disponibles sont visibles par tous les utilisateurs tandis que ceux qui sont marqués comme non disponibles ne sont visibles que pour les utilisateurs connectés en tant qu'admin.
 
 - **Ajout d'un un véhicule** : Remplir un formulaire pour ajouter un véhicule avec des informations comme la marque, le modèle, la finition, le prix d'achat, et des images.
 
