@@ -24,7 +24,7 @@ namespace ExpressVoitures.Models.Services
                 if (file.Length > 0)
                 {
                     string dossierImages = Path.Combine("wwwroot", "images");
-                    Directory.CreateDirectory(dossierImages);  // Crée le dossier s'il n'existe pas
+                    Directory.CreateDirectory(dossierImages);
 
                     string cheminFichier = Path.Combine(dossierImages, file.FileName);
                     using (var stream = new FileStream(cheminFichier, FileMode.Create))

@@ -26,6 +26,5 @@ namespace ExpressVoitures.Models.Entities
 
         // Propriété calculée pour retourner les URLs des images
         public List<string> ImageUrls => Images.Select(img => img.Url).ToList();
-        //public List<string>? ImageUrls { get; set; }
     }
 }

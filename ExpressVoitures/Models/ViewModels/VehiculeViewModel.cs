@@ -12,8 +12,7 @@ namespace ExpressVoitures.Models.ViewModels
         public int Id { get; set; }
 
         
-        public int? AnneeId { get; set; }
-                
+        public int? AnneeId { get; set; }           
         public IEnumerable<SelectListItem> ? Annees { get; set; }
 
         
