@@ -7,7 +7,6 @@ namespace ExpressVoitures.Models.Entities
         [Key]
         public int Id { get; set; }
 
-        [Required]
         public string Nom { get; set; }
 
         // Propriété de navigation pour les modèles associés
