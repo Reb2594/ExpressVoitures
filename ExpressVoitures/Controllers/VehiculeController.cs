@@ -248,12 +248,25 @@ namespace ExpressVoitures.Controllers
                 if (!viewModel.FinitionId.HasValue)
                 {
                     ModelState.AddModelError(nameof(viewModel.FinitionId), "La finition est obligatoire.");
-                }                
+                }
 
                 if (!viewModel.DateAchat.HasValue)
                 {
                     ModelState.AddModelError(nameof(viewModel.DateAchat), "La date d'achat est obligatoire.");
                 }
+                else
+                {                    
+                    if (viewModel.DateAchat.Value.Date >= DateTime.Today)
+                    {
+                        ModelState.AddModelError(nameof(viewModel.DateAchat), "La date d'achat ne peut pas être dans le futur.");
+                    }
+
+                    if (viewModel.DateAchat.Value.Date < new DateTime(1980, 1, 1))
+                    {
+                        ModelState.AddModelError(nameof(viewModel.DateAchat), "La date d'achat ne peut pas être antérieure au 1er janvier 1980.");
+                    }
+                }
+
 
                 if (!viewModel.PrixAchat.HasValue || viewModel.PrixAchat <= 0)
                 {
@@ -273,6 +286,11 @@ namespace ExpressVoitures.Controllers
                 if (!viewModel.PrixVente.HasValue || viewModel.PrixVente <= (viewModel.PrixAchat + viewModel.ReparationCout))
                 {
                     ModelState.AddModelError(nameof(viewModel.PrixVente), "Le prix de vente doit être supérieur à la somme du prix d'achat et du montant des coûts de réparation.");
+                }
+
+                if (viewModel.DateVente < viewModel.DateAchat)
+                {
+                    ModelState.AddModelError(nameof(viewModel.DateVente), "La date de vente doit être postérieure à la date d'achat.");
                 }
 
                 if (ModelState.IsValid)
@@ -550,6 +568,18 @@ namespace ExpressVoitures.Controllers
                 {
                     ModelState.AddModelError(nameof(viewModel.DateAchat), "La date d'achat est obligatoire.");
                 }
+                else
+                {
+                    if (viewModel.DateAchat.Value.Date >= DateTime.Today)
+                    {
+                        ModelState.AddModelError(nameof(viewModel.DateAchat), "La date d'achat ne peut pas être dans le futur.");
+                    }
+
+                    if (viewModel.DateAchat.Value.Date < new DateTime(1980, 1, 1))
+                    {
+                        ModelState.AddModelError(nameof(viewModel.DateAchat), "La date d'achat ne peut pas être antérieure au 1er janvier 1980.");
+                    }
+                }
 
                 if (!viewModel.PrixAchat.HasValue || viewModel.PrixAchat <= 0)
                 {
@@ -571,7 +601,10 @@ namespace ExpressVoitures.Controllers
                     ModelState.AddModelError(nameof(viewModel.PrixVente), "Le prix de vente doit être supérieur à la somme du prix d'achat et du montant des coûts de réparation.");
                 }
 
-                
+                if (viewModel.DateVente < viewModel.DateAchat)
+                {
+                    ModelState.AddModelError(nameof(viewModel.DateVente), "La date de vente doit être postérieure à la date d'achat.");
+                }
 
                 if (ModelState.IsValid)
                 {      
